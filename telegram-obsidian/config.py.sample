@@ -1,5 +1,5 @@
 # ==================== ОСНОВНЫЕ НАСТРОЙКИ БОТА ====================
 TOKEN = "ВАШ_ТЕЛЕГРАМ_ТОКЕН_БОТА"
 ADMINS = [ВАШ_ID]  # Список админов
-OBSIDIAN_PATH = "ПУТЬ_К_КОРНЮ_OBSIDIAN"
+OBSIDIAN_PATH = r"ПУТЬ_К_КОРНЮ_OBSIDIAN" # /home/example/.obsidian/YOUR_VAULT/ или C:\Users\Username\YOUR_VAULT\ либо путь к директории где будет создана папка с заметками 
 
