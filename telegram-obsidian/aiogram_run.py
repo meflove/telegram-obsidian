@@ -3,8 +3,9 @@ from aiogram.types import BotCommand
 import locale
 
 # Импорт основных компонентов проекта
-from create_bot import bot, dp  # <-- Зависимость от конфигурации бота
+from create_bot import bot, dp, setup_logger  # <-- Зависимость от конфигурации бота
 from handlers.bot_commands import bot_commands_router  # <-- Роутер стартовых команд
+from handlers.menu import menu_router  # <-- Роутер меню
 
 
 async def setup_bot_commands(bot):
@@ -18,17 +19,22 @@ async def setup_bot_commands(bot):
 
 async def main():
     """Главная функция инициализации:
+    - Инициализация логгера
     - Настройка локализации
     - Подключение всех обработчиков
     - Запуск бота
     """
     try:
+        # Инициализация логгера
+        await setup_logger()
+
         # Важно: Локализация для корректного отображения дат/времени
         locale.setlocale(locale.LC_ALL, ("ru_RU", "UTF-8"))
 
         # Подключение всех обработчиков из папки handlers
         dp.include_routers(  # <-- Центральная точка маршрутизации
-            bot_commands_router
+            bot_commands_router,
+            menu_router,
         )
 
         await bot.delete_webhook(drop_pending_updates=True)
@@ -42,4 +48,4 @@ async def main():
 
 if __name__ == "__main__":
     # Точка входа для запуска бота
-    asyncio.run(main())  # <-- Запуск асинхронного event-loop
+    asyncio.run(main())

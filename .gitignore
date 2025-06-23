@@ -12,3 +12,4 @@ wheels/
 # Hidden files
 telegram-obsidian/config.py
 telegram-obsidian/test.py
+telegram-obsidian/bot.log

@@ -1,0 +1,2 @@
+class NoteExists(Exception):
+    pass
