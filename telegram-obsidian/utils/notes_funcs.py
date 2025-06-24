@@ -1,11 +1,9 @@
-import asyncio
 import aiofiles
-from pathlib import Path
 from datetime import datetime
 import os
 
-from config import OBSIDIAN_PATH
 from exceptions import NoteExists
+from create_bot import obsidian_path
 
 
 async def create_note(
@@ -30,7 +28,7 @@ tags:
 url:
 ---
 """
-    file_path = Path(OBSIDIAN_PATH) / "Tg notes" / f"{name}.md"
+    file_path = obsidian_path / "Tg notes" / f"{name}.md"
 
     if os.path.exists(file_path):
         raise NoteExists(f"Заметка уже существует {name}.md")

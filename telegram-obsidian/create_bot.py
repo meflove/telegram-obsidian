@@ -1,9 +1,10 @@
-from logging import getLogger, StreamHandler, Formatter, WARNING, INFO
+from logging import getLogger, StreamHandler, Formatter, INFO
 from logging.handlers import RotatingFileHandler
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
+from pathlib import Path
 import config  # <-- Основные настройки проекта
 
 
@@ -63,3 +64,5 @@ bot = Bot(
 dp = Dispatcher(
     retry_after=5,  # Повторная обработка после ошибок через 5 сек
 )
+
+obsidian_path = Path(config.OBSIDIAN_PATH)

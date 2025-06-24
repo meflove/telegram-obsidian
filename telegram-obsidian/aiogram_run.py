@@ -28,9 +28,6 @@ async def main():
         # Инициализация логгера
         await setup_logger()
 
-        # Важно: Локализация для корректного отображения дат/времени
-        locale.setlocale(locale.LC_ALL, ("ru_RU", "UTF-8"))
-
         # Подключение всех обработчиков из папки handlers
         dp.include_routers(  # <-- Центральная точка маршрутизации
             bot_commands_router,
@@ -39,13 +36,12 @@ async def main():
 
         await bot.delete_webhook(drop_pending_updates=True)
         await setup_bot_commands(bot)
-        await dp.start_polling(bot)  # <-- Основной цикл обработки сообщений
+        await dp.start_polling(bot)
     except Exception as e:
         print(f"Ошибка: {e}")
     finally:
-        await bot.session.close()  # Важно: Корректное завершение работы
+        await bot.session.close()
 
 
 if __name__ == "__main__":
-    # Точка входа для запуска бота
     asyncio.run(main())
