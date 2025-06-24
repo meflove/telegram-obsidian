@@ -27,7 +27,7 @@
 ### 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/ваш-репозиторий/telegram-obsidian.git
+git clone https://github.com/meflove/telegram-obsidian.git
 cd telegram-obsidian
 ```
 
