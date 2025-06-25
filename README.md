@@ -33,19 +33,23 @@ cd telegram-obsidian
 
 ### 2. Установка зависимостей
 
-```bash
-python3 -m venv venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-или
+Рекомендуется
 
 ```bash
 uv venv
 source .venv/bin/activate
 uv sync
 ```
+
+или
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+
 
 ### 3. Конфигурация бота
 
