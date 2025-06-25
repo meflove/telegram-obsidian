@@ -39,7 +39,9 @@ async def skip_name_handler(call: types.CallbackQuery, state: FSMContext):
     await state.update_data(note_name=None)
     await state.set_state(CreateNote.note_content)
 
-    await call.message.answer("Название пропущено\.\nВведите содержание заметки:")
+    await call.message.answer(
+        "Название пропущено.\nВведите содержание заметки:", parse_mode=None
+    )
 
 
 # Обработчик ввода названия
@@ -49,7 +51,8 @@ async def process_note_name(message: types.Message, state: FSMContext):
     await state.set_state(CreateNote.note_content)
 
     await message.answer(
-        f"Название сохранено: {message.text}\nТеперь введите содержание заметки:"
+        f"Название сохранено: {message.text}\nТеперь введите содержание заметки:",
+        parse_mode=None,
     )
 
 
@@ -67,6 +70,7 @@ async def process_note_content(message: types.Message, state: FSMContext):
 
     await message.answer(
         f"Содержание сохранено: {message.text}\nТеперь введите теги заметки через пробел:",
+        parse_mode=None,
         reply_markup=keyboard,
     )
 
@@ -81,7 +85,8 @@ async def skip_tags_handler(call: types.CallbackQuery, state: FSMContext):
         await create_note(
             tags=[], name=data.get("note_name"), content=data.get("note_content")
         )
-        await call.message.answer("Заметка создана\!")
+
+        await call.message.answer("Заметка создана!", parse_mode=None)
         await call.message.answer(
             "Выберите что вы хотите сделать",
             reply_markup=await main_menu_kb(),
@@ -103,9 +108,10 @@ async def process_note_tags(message: types.Message, state: FSMContext):
             tags=tags, name=data.get("note_name"), content=data.get("note_content")
         )
         await message.answer(f"Теги сохранены:\n{message.text}")
-        await message.answer("Заметка создана\!")
+        await message.answer("Заметка создана!", parse_mode=None)
         await message.answer(
             "Выберите что вы хотите сделать",
+            parse_mode=None,
             reply_markup=await main_menu_kb(),
         )
     except NoteExists as e:
