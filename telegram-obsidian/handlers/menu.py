@@ -1,9 +1,8 @@
-from aiogram import F, Router
-from aiogram import types
-from aiogram.fsm.state import StatesGroup, State
-from aiogram.fsm.context import FSMContext
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram import F, Router, types
 from aiogram.exceptions import TelegramBadRequest
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import State, StatesGroup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # Импорт внутренних модулей
 from exceptions import NoteExists
@@ -25,9 +24,7 @@ class CreateNote(StatesGroup):
 async def create_note_handler(call: types.CallbackQuery, state: FSMContext):
     await state.set_state(CreateNote.note_name)
     keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(text="Пропустить", callback_data="skip_name")]
-        ]
+        inline_keyboard=[[InlineKeyboardButton(text="Пропустить", callback_data="skip_name")]]
     )
 
     await call.message.answer("Введите название заметки:", reply_markup=keyboard)
@@ -39,9 +36,7 @@ async def skip_name_handler(call: types.CallbackQuery, state: FSMContext):
     await state.update_data(note_name=None)
     await state.set_state(CreateNote.note_content)
 
-    await call.message.answer(
-        "Название пропущено.\nВведите содержание заметки:", parse_mode=None
-    )
+    await call.message.answer("Название пропущено.\nВведите содержание заметки:", parse_mode=None)
 
 
 # Обработчик ввода названия
@@ -63,9 +58,7 @@ async def process_note_content(message: types.Message, state: FSMContext):
     await state.set_state(CreateNote.note_tags)
 
     keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(text="Пропустить", callback_data="skip_tags")]
-        ]
+        inline_keyboard=[[InlineKeyboardButton(text="Пропустить", callback_data="skip_tags")]]
     )
 
     await message.answer(
@@ -82,9 +75,7 @@ async def skip_tags_handler(call: types.CallbackQuery, state: FSMContext):
     data = await state.get_data()
 
     try:
-        await create_note(
-            tags=[], name=data.get("note_name"), content=data.get("note_content")
-        )
+        await create_note(tags=[], name=data.get("note_name"), content=data.get("note_content"))
 
         await call.message.answer("Заметка создана!", parse_mode=None)
         await call.message.answer(
@@ -104,9 +95,7 @@ async def process_note_tags(message: types.Message, state: FSMContext):
     tags = message.text.split() if message.text else []
 
     try:
-        await create_note(
-            tags=tags, name=data.get("note_name"), content=data.get("note_content")
-        )
+        await create_note(tags=tags, name=data.get("note_name"), content=data.get("note_content"))
         await message.answer(f"Теги сохранены:\n{message.text}")
         await message.answer("Заметка создана!", parse_mode=None)
         await message.answer(

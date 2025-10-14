@@ -1,4 +1,3 @@
-from aiogram import types
 from aiogram.utils.keyboard import InlineKeyboardBuilder  # Построитель клавиатур
 
 # Соответствие внутренних названий подписок и их отображаемых имен

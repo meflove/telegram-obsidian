@@ -1,0 +1,61 @@
+target-version = "py313"
+
+# Основные настройки
+line-length = 120 # Максимальная длина строки для кода
+indent-width = 4  # Ширина отступа
+
+# Каталоги, которые следует учитывать при разрешении импорта из first/third-party источников
+src = ["src"]
+
+# Настройки линтера
+[lint]
+# Нестабильные и находящиеся в предварительной версии правила
+preview = true
+# Правила, которые должен применять линтер
+select = [
+  "UP",   # pyupgrade
+  "I",    # isort
+  "E",    # flake8-errors
+  "W",    # flake8-warnings
+  "F",    # flake8-pyflakes
+  "B",    # flake8-bugbear
+  "C4",   # flake8-comprehensions
+  "S",    # flake8-bandit
+  "BLE",  # flake8-blind-except
+  "T10",  # flake8-debugger
+  "PT",   # flake8-pytest-style
+  "RUF",  # Ruff
+  "ERA",  # eradicate
+  "FURB", # refurb
+]
+
+ignore = [
+  "C408",   # Ненужный вызов dict, list и т.д.
+  "RUF001", # Игнорирование похожих символов с разными ASCII
+  "RUF002", # Игнорирование похожих символов с разными ASCII
+  "RUF003", # Игнорирование похожих символов с разными ASCII
+  "S110",   # try-except-pass
+  "RUF029", # unused-async
+  "E501",   # line-too-long
+  "S608",   #hardcoded-sql-expression
+  "UP015",  #redundant-open-modes
+  "BLE001", #blind-except
+] # Игнорирование конкретных предупреждений линтера
+
+# Исключение директорий и файлов из линтинга
+exclude = ["src/tests/**"]
+
+# Ошибки, которые могут быть исправлены автоматически
+fixable = [
+  "I",    # cортировка импортов
+  "W291",
+]
+
+# Настройки форматтера
+[format]
+quote-style = "double" # 'single' для одинарных, "double" для двойных кавычек
+# indent-style = "space"
+
+# Дополнительные настройки для плагинов
+[lint.flake8-bandit]
+check-typed-exception = true # Проверка типизированных исключений

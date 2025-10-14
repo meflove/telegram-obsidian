@@ -1,11 +1,11 @@
-from logging import getLogger, StreamHandler, Formatter, INFO
+from logging import INFO, Formatter, StreamHandler, getLogger
 from logging.handlers import RotatingFileHandler
+from pathlib import Path
+
+import config  # <-- Основные настройки проекта
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-
-from pathlib import Path
-import config  # <-- Основные настройки проекта
 
 
 # ==================== ЛОГГИРОВАНИЕ ====================
@@ -56,9 +56,7 @@ async def setup_logger():
 # ==================== ЯДРО AIOGRAM ====================
 bot = Bot(
     token=config.TOKEN,  # Токен из конфига
-    default=DefaultBotProperties(
-        parse_mode=ParseMode.MARKDOWN_V2
-    ),  # Поддержка разметки
+    default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN_V2),  # Поддержка разметки
 )
 
 dp = Dispatcher(

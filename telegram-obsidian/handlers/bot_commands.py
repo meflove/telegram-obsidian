@@ -1,12 +1,11 @@
-from aiogram import Router
+from aiogram import Router, types
 from aiogram.filters import Command, CommandStart
-from aiogram import types
+from config import ADMINS
+from create_bot import bot
 
 # Импорт внутренних модулей
 from keyboards.main_kb import main_menu_kb
 from utils.list_notes import list_notes_tree
-from create_bot import bot
-from config import ADMINS
 
 bot_commands_router = Router()  # Роутер для стартовых команд
 

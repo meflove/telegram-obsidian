@@ -1,6 +1,6 @@
 import asyncio
+
 from aiogram.types import BotCommand
-import locale
 
 # Импорт основных компонентов проекта
 from create_bot import bot, dp, setup_logger  # <-- Зависимость от конфигурации бота

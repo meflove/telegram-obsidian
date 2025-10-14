@@ -8,6 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+.direnv
 
 # Hidden files
 telegram-obsidian/config.py

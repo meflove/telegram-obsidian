@@ -1,9 +1,9 @@
-import aiofiles
-from datetime import datetime
 import os
+from datetime import datetime
 
-from exceptions import NoteExists
+import aiofiles
 from create_bot import obsidian_path
+from exceptions import NoteExists
 
 
 async def create_note(

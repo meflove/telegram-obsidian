@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: detect-private-key
+      - id: check-yaml
+      - id: debug-statements
+  - repo: local
+    hooks:
+      - id: nixfmt-pre-commit
+        name: Format with formatter from flake
+        entry: nix fmt .
+        language: system
+        stages: [pre-commit]

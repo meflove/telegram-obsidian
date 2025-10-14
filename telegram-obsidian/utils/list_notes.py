@@ -1,6 +1,6 @@
-import os
 import asyncio
-import sys
+import os
+
 from create_bot import obsidian_path
 
 
@@ -21,7 +21,7 @@ class Tree:
         try:
             filepaths = await asyncio.to_thread(os.listdir, directory)
         except Exception as e:
-            return [f"{prefix}[error: {str(e)}]"]
+            return [f"{prefix}[error: {e}]"]
 
         filepaths = sorted([f for f in filepaths if not f.startswith(".")])
         entries = []
@@ -35,33 +35,25 @@ class Tree:
                 is_dir = await asyncio.to_thread(os.path.isdir, absolute)
             except Exception as e:
                 self.fileCount += 1
-                entries.append(
-                    f"{prefix}{'└── ' if is_last else '├── '}{name} [error: {e}]"
-                )
+                entries.append(f"{prefix}{'└── ' if is_last else '├── '}{name} [error: {e}]")
                 continue
 
             if is_dir:
                 if self.limit is not None and self.dirCount >= self.limit:
-                    entries.append(
-                        f"{prefix}{'└── ' if is_last else '├── '}{name} [dir: omitted due to limit]"
-                    )
+                    entries.append(f"{prefix}{'└── ' if is_last else '├── '}{name} [dir: omitted due to limit]")
                 else:
                     self.dirCount += 1
                     entries.append(f"{prefix}{'└── ' if is_last else '├── '}{name}")
 
                     if self.limit is not None and self.dirCount >= self.limit:
-                        entries.append(
-                            f"{prefix}{'    ' if is_last else '│   '}[content omitted due to limit]"
-                        )
+                        entries.append(f"{prefix}{'    ' if is_last else '│   '}[content omitted due to limit]")
                     else:
                         new_prefix = prefix + ("    " if is_last else "│   ")
                         try:
                             child_entries = await self.walk(absolute, new_prefix)
                             entries.extend(child_entries)
                         except Exception as e:
-                            entries.append(
-                                f"{prefix}{'    ' if is_last else '│   '}[error: {e}]"
-                            )
+                            entries.append(f"{prefix}{'    ' if is_last else '│   '}[error: {e}]")
             else:
                 self.fileCount += 1
                 entries.append(f"{prefix}{'└── ' if is_last else '├── '}{name}")
